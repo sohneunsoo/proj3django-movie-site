@@ -1,0 +1,232 @@
+{% extends 'base.html' %}
+{% block content %}
+<div id="top"></div>
+  <div class="container">
+    <style>
+    .form-check-inline > div {
+    display: inline-block;
+    }
+      .board-header {
+        border-bottom: 1px solid #E9E9E9;
+        border-top: 1px solid #E9E9E9;
+      }
+      .nav-loc {
+        color: #8B8B8B;
+      }
+      .board-content {
+        min-height: 15rem;
+      }
+      .divider {
+        background-color: #E9E9E9;
+        width: 100%;
+        height: 1px;
+      }
+      .comment-list-group-item {
+        border-left: 0;
+        border-right: 0;
+      }
+      .comment-contents {
+        cursor: default;
+      }
+      .comment-total {
+        border-top: 1px solid #E9E9E9;
+      }
+      .accordion-button:hover {
+        transform: scale(1.02);
+        transition: 0.5s;
+      }
+      .accordion-button:hover {
+        transform: scale(1.02);
+        transition: 0.5s;
+      }
+      .top:hover {
+        transform: scale(1.05);
+        transition: 0.5s;
+      }
+      .page-item:hover {
+        transform: scale(1.1);
+        transition: 0.5s;
+      }
+      .star-rating {
+        display: flex;
+        flex-direction: row-reverse;
+        font-size: 2rem;
+        line-height: 2.5rem;
+        justify-content: space-around;
+        padding: 0 0.2em;
+        width: 5em;
+      }
+      .star-rating input {
+        display: none;
+      }
+      .star-rating label {
+        -webkit-text-fill-color: gray; /* Will override color (regardless of order) */
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: #2b2a29;
+        cursor: pointer;
+      }
+      .star-rating :checked ~ label {
+        -webkit-text-fill-color: red;
+      }
+      .star-rating label:hover,
+      .star-rating label:hover ~ label {
+        -webkit-text-fill-color: red;
+      }
+    </style>
+    <div class="mt-5 contents-wrap" style="color:white";>
+      <h3 class="nav-loc" style="color:white";>
+      </h3>
+      <div class="container">
+        <div class="contents">
+          <div class="board-header nav-justified d-flex justify-content-between p-3">
+            <h5 class="my-0 fw-bolder">
+              {{ movies.moviename }}
+            </h5>
+            <div class="d-flex" style="align-items: center;">
+              <div style="margin-right:10px;">
+                <div class="btn-group" role="group" aria-label="Basic outlined example"></div>
+              </div>
+              <div style="margin-right:20px;">
+                ★ {{ movies.valuation }}
+              </div>
+              <div style="margin-right:20px;">
+                ♥ {{ movies.heartcount }}
+              </div>
+            </div>
+          </div>
+          <div><img style='width: 160px; float:left ' src='{{movies.image}}'/></div>
+        <div class='movie_info'>
+          <div class="p-1">
+            {{ movies.openingdate }}
+          </div>
+          <div class="p-1">
+            {{ movies.grade }}
+          </div>
+          <div class="p-1">
+            {{ movies.director }}
+          </div>
+          <div class=" p-1">
+            {{ movies.genre }}
+          </div>
+          <div class="p-1">
+            {{ movies.country }}
+          </div>
+          <div class="p-1">
+            {{ movies.timeline }}
+          </div>
+          <div class="p-1">
+            {{ movies.actors }}
+          </div>
+        </div>
+          <div class="board-content p-3">
+            {{ movies.story }}
+        </div>
+        </div>
+      </div>
+      <form action="{% url 'board:comment' %}" method="POST">
+        {% csrf_token %}
+        <div class="star-rating space-x-4 mx-auto input-group mb-3" style="padding: 0.2rem; width:20%;">
+          <input type="radio" id="5-stars" name='star' value="10" v-model="ratings"/>
+          <label for="5-stars" class="star pr-4">★</label>
+          <input type="radio" id="4-stars" name='star' value="8" v-model="ratings"/>
+          <label for="4-stars" class="star">★</label>
+          <input type="radio" id="3-stars" name='star' value="6" v-model="ratings"/>
+          <label for="3-stars" class="star">★</label>
+          <input type="radio" id="2-stars" name='star' value="4" v-model="ratings"/>
+          <label for="2-stars" class="star">★</label>
+          <input type="radio" id="1-star" name='star' value="2" v-model="ratings" />
+          <label for="1-star" class="star">★</label>
+        </div>
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" name="content" placeholder="영화에관한 댓글을 적어주세요" style="border:none; border-radius: 1em 0em 0em 1em; padding: 2%; width: 95%; display: flex; position: relative; left: 0.5%; z-index: 1;"/>
+          <button type="submit" class="btn btn-dark" style="border:ridge white; border-radius: 1em; position: relative; right: 0.5%; z-index: 2;">작성</button>
+        </div>
+      </form>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <div class="container">
+      <div class="accordion" id="accordionExample">
+        <div class="accordion-item" style="border-radius: 20px; background-color: #212529; border: none; color: ghostwhite;">
+          <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="background-color:#212529; border:none; border-radius: 10px; padding: 7px; border: 2px solid ghostwhite;">
+              <div class="comment-total py-2 px-4" style="border: none; color:ghostwhite;">
+                댓글
+                <strong>{{ movies.starcomments_set.count }}</strong>개
+              </div>
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              {% for comment in comment_set %}
+              <div class="media g-mb-30 media-comment;" style='border:ridge white; border-radius: 1.5em; padding: 1rem'>
+                <h5 class="h5 g-color-gray-dark-v1 mb-0">{{comment.userid}}</h5>
+                <p>{{comment.content}}</p>
+                    <ul class="list-inline d-sm-flex my-0">
+                      <li class="list-inline-item g-mr-20">
+                        <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!" style="color: orangered;">
+                          <i class="fa fa-thumbs-up g-pos-rel g-top-1 g-mr-3"></i>
+                      {{comment.recomm}}
+                    </a>
+                  </li>
+                  <li class="list-inline-item g-mr-20">
+                    <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="#!" style="color: gray;">
+                      <i class="fa fa-thumbs-down g-pos-rel g-top-1 g-mr-3">{{comment.unrecomm}}</i>
+                    </a>
+                  </li>
+                      <li class="list-inline-item ml-auto">
+                      <i class="g-color-gray-dark-v4 g-font-size-12"></i>
+                      {{ comment.sctime }}
+                  </li>
+                </ul>
+            </div>
+          {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+      <br>
+      <!-- 페이징처리 시작 -->
+
+<ul class="pagination justify-content-center" style="padding: 15px;">
+  <!-- 이전페이지 -->
+  {% if comment_set.has_previous %}
+  <li class="page-item">
+      <a class="page-link" href="?page={{ comment_set.previous_page_number }}" style="border-radius: 15px 0px 0px 15px; border: none; background-color: #212529; color:ghostwhite; margin: 5px">이전</a>
+  </li>
+  {% else %}
+  <li class="page-item disabled">
+      <a class="page-link" tabindex="-1" aria-disabled="true" href="#" style="border-radius: 15px 0px 0px 15px; border: none; background-color: #212529; color:gray; margin: 5px">이전</a>
+  </li>
+  {% endif %}
+  <!-- 페이지리스트 -->
+  {% for page_number in comment_set.paginator.page_range %}
+  {% if page_number >= comment_set.number|add:-5 and page_number <= comment_set.number|add:5 %}
+  {% if page_number == comment_set.number %}
+  <li class="page-item active" aria-current="page">
+      <a class="page-link" href="?page={{ page_number }}" style="border: 2px solid ghostwhite; background-color: #212529; color:ghostwhite; border-radius: 12px; margin: 5px">{{ page_number }}</a>
+  </li>
+  {% else %}
+  <li class="page-item">
+      <a class="page-link" href="?page={{ page_number }}" style="border: none; background-color: #212529; color:ghostwhite; margin: 5px">{{ page_number }}</a>
+  </li>
+  {% endif %}
+  {% endif %}
+  {% endfor %}
+  <!-- 다음페이지 -->
+  {% if comment_set.has_next %}
+  <li class="page-item">
+      <a class="page-link" href="?page={{ comment_set.next_page_number }}" style="border-radius: 0px 15px 15px 0px; border: none; background-color: #212529; color:ghostwhite; margin: 5px">다음</a>
+  </li>
+  {% else %}
+  <li class="page-item disabled">
+      <a class="page-link" tabindex="-1" aria-disabled="true" href="#" style="border-radius: 0px 15px 15px 0px; border: none; background-color: #212529; color:gray; margin: 5px">다음</a>
+  </li>
+  {% endif %}
+</ul>
+<!-- 페이징처리 끝 -->
+      </div>
+    </div>
+  </div>
+  <a href="#top"><button class="top" id="live-chat">△</button></a>
+{% endblock %}
+{% comment %} |date:"Y.m.d h:i" {% endcomment %}

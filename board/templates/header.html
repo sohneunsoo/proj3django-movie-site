@@ -1,0 +1,130 @@
+<nav
+id="header"
+  class="navbar navbar-expand-lg bg-dark d-flex"
+  style="position: fixed;
+  top: 0; left: 0;
+  right: 0; width: 100%;
+  z-index: 3; margin-left: 0%;
+  margin-right: 16%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 10px;">
+  <style>
+    .dropdown-item:hover{
+      transform: scale(1.01);
+      transition: 0.5s;
+    }
+    .navbar-nav:hover{
+      transform: scale(1.02);
+      transition: 0.5s;
+    }
+    .logo:hover {
+      transform: scale(1.02);
+      transition: 0.5s;
+    }
+    .search-box:hover {
+      transform: scale(1.05);
+      transition: 0.5s;
+    }
+  </style>
+  <div class="container-fluid d-flex" style="margin-left: 16.7%;">
+    <a
+      href="{% url 'board:index' %}"
+      class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
+      style=""
+    >
+        <img
+          class="logo"
+          src="https://postfiles.pstatic.net/MjAyMzAxMTdfMTEx/MDAxNjczOTMwOTAwMTEw.2a1-A8G8USxsbir_VzyPG4pZbsEgSFgMiMz-g_eDkpIg.alC866O8FyzMpYkWCbAghO_VRBNHLtQAWswEGFpelQog.PNG.gkswnsrb8560/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7_20230117_014755.png?type=w966"
+          alt="netflidia"
+          style="position: initial; width: 32%; margin:2%;"
+        />
+    </a>
+    <div class="dropdown d-flex" style="margin-left: -24%; margin-right: 26%;">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex" style="z-index: 1">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          role="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+          style="color:ghostwhite"
+          >
+          <b>{{genrename}}</b>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-dark">
+          <li><a class="dropdown-item" href="{% url 'board:index' %}">전체보기</a></li>
+          <li><a class="dropdown-item" href="{% url 'board:index' %}?genre=드라마">드라마</a></li>
+          <li><a class="dropdown-item" href="{% url 'board:index' %}?genre=판타지">판타지</a></li>
+          <li><a class="dropdown-item" href="{% url 'board:index' %}?genre=공포">공포</a></li>
+          <li><a class="dropdown-item" href="{% url 'board:index' %}?genre=멜로">멜로/애정/로맨스</a></li>
+          <li><a class="dropdown-item" href="{% url 'board:index' %}?genre=모험">모험</a></li>
+          <li><a class="dropdown-item" href="{% url 'board:index' %}?genre=스릴러">스릴러</a></li>
+          <li><a class="dropdown-item" href="{% url 'board:index' %}?genre=느와르">느와르</a></li>
+          <li><a class="dropdown-item" href="{% url 'board:index' %}?genre=다큐멘터리">다큐멘터리</a></li>
+          <li><a class="dropdown-item" href="{% url 'board:index' %}?genre=코미디">코미디</a></li>
+          <li><a class="dropdown-item" href="{% url 'board:index' %}?genre=가족">가족</a></li>
+          <li><a class="dropdown-item" href="{% url 'board:index' %}?genre=미스터리">미스터리</a></li>
+          <li><a class="dropdown-item" href="{% url 'board:index' %}?genre=전쟁">전쟁</a></li>
+          <li><a class="dropdown-item" href="{% url 'board:index' %}?genre=애니메이션">애니메이션</a></li>
+          <li><a class="dropdown-item" href="{% url 'board:index' %}?genre=범죄">범죄</a></li>
+          <li><a class="dropdown-item" href="{% url 'board:index' %}?genre=뮤지컬">뮤지컬</a></li>
+          <li><a class="dropdown-item" href="{% url 'board:index' %}?genre=SF">SF</a></li>
+          <li><a class="dropdown-item" href="{% url 'board:index' %}?genre=액션">액션</a></li>
+        </ul>
+      </ul>
+    </div>
+    <div class="dropdown d-flex" style="margin-left: -25%; margin-right: 18%;">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex" style="z-index: 1">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          role="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+          style="color:ghostwhite"
+          >
+          <b>{{ordername}}</b>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-dark">
+          <li><a class="dropdown-item" href="{% url 'board:index' %}?genre={{ genre }}&order=v" value="별점 순">별점 순</a></li>
+          <li><a class="dropdown-item" href="{% url 'board:index' %}?genre={{ genre }}&order=od" value="개봉날짜 순">개봉날짜 순</a></li>
+          <li><a class="dropdown-item" href="{% url 'board:index' %}?genre={{ genre }}&order=n" value="이름 순">이름 순</a></li>
+        </ul>
+      </ul>
+    </div>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse d-flex" id="navbarSupportedContent" style="justify-content: space-around; margin-right: 8%;">
+    <div class="search-box active d-flex" style="">
+      <form class="d-flex" role="search"  method="GET" action="{% url 'board:index' %}">
+        <input
+          class="form-control me-2 d-flex"
+          type="search"
+          placeholder="영화를 찾아보세요."
+          aria-label="Search"
+          aria-describedby="button-addon2"
+          style="
+            border-radius: 10px;
+            border:none;
+            top: 10px;
+            position: relative;
+            width: 300px;
+          "
+          name='q' value="{{q}}"
+        />
+        </a>
+      </form>
+    </div>
+    </div>
+  </div>
+</nav>
