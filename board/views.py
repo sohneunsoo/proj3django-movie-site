@@ -133,7 +133,7 @@ def wc(request):
         m.save()
 
 
-def wcm(request,moviecode):
+def wcm(request,moviecode): #함수화 해서 위랑 합쳐야됨
 
     movies = NaverMovie.objects.all().prefetch_related('starcomments_set').get(moviecode=moviecode)
     comment_set = movies.starcomments_set.all().exclude(content__exact='')
@@ -178,3 +178,24 @@ def commentlike(request):
     comment.save()
 
     return redirect(reverse('board:detail', kwargs={'moviecode':moviecode,})+f'?page={page}#cmm')
+
+
+# def board_update(request, board_id):
+#     board = Board.objects.get(id=board_id)
+#     form = BoardForm(instance=board)
+#     if request.method == 'POST':
+#         form = BoardForm(request.POST, instance=board)
+#         if form.is_valid():
+#             form.save()
+#             return redirect(reverse('board:detail', args=[board_id]))
+
+#     return render(request, 'board/update.html',{'form':form,'board':board})
+
+# def board_delete(request, board_id):
+#     board = Board.objects.get(id=board_id)
+#     if request.method == 'POST':
+#         board.delete()
+
+#         return redirect(reverse('board:index'))
+
+#     return render(request, 'board/delete.html', {'board':board})
